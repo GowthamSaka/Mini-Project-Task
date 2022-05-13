@@ -1,0 +1,42 @@
+.bg-container{
+	background-color: #05f2e6;
+    filter: brightness(85%);
+	background-size: cover;
+	height: 110vh;
+	max-height: 2500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items:center;
+}
+
+.form-body  {
+    background-color: #FCF6F5FF;
+	padding: 20px;
+	border-radius: 15px;
+    background-size: cover;
+    width:500px;
+    align-items:center;
+}
+
+.employee-image {
+    height:100px;
+    width:100px;
+    margin: 0;
+    border-radius : 30px;
+}
+
+.form_label{
+    width: 40%;
+}
+
+.form_input{
+    width: 60%;
+}
+
+.submit {
+    border-radius:3px;
+    text-align:center;
+    border-width:0;
+    background-color:rgb(16, 204, 148);
+}

@@ -1,0 +1,11 @@
+.search-container {
+    margin-top : 50px;
+    margin-left:80px;
+   margin-right: 250px;
+   border-bottom: 1px solid black;
+}
+
+.search-button {
+    border:none;
+    border-width:0;
+}
