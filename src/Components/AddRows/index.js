@@ -5,9 +5,8 @@ import UserContext from "../Context/UserContext";
 
 class AddRowsDynamic extends React.Component {
 
-  static contextType = UserContext
+  // static contextType = UserContext
 
-  stat
   state = {
     rows: [{}],
     technologies : [],
@@ -62,12 +61,13 @@ class AddRowsDynamic extends React.Component {
       return (
         <UserContext.Consumer>
           {value => {
-            const {empaname,empid} = value;
+            const {empname,empid} = value;
           return(
         <div className="container">
           <div className="row clearfix">
             <div className="col-md-12 column">
               <h1>Welcome {empname}</h1>
+              <p>{empid}</p>
               <table
                 className="table table-bordered table-hover form-table"
                 id="tab_logic"
