@@ -1,7 +1,13 @@
 import React from "react";
+import UserContext from "../Context/UserContext";
+
 
 
 class AddRowsDynamic extends React.Component {
+
+  static contextType = UserContext
+
+  stat
   state = {
     rows: [{}],
     technologies : [],
@@ -9,14 +15,15 @@ class AddRowsDynamic extends React.Component {
   };
 
   componentDidMount() {
-    fetch(
-        "http://localhost:8081/alltechnologies")
-        .then((res) => res.json())
-        .then((json) => {
-            this.setState({
-                technologies: json,
-            });
+    fetch("http://localhost:8080/api/e1/alltechnologies")
+        .then((result) => result.json())
+        .then((jsonsData) => {
+            this.setState({technologies : jsonsData})
         })
+        .catch((err)=>{
+            console.log(err)
+        })
+    
 }
 
 
@@ -51,18 +58,23 @@ class AddRowsDynamic extends React.Component {
   }
   render() {
       const {technologies} = this.state;
-    return (
-      <div>
+      
+      return (
+        <UserContext.Consumer>
+          {value => {
+            const {empaname,empid} = value;
+          return(
         <div className="container">
           <div className="row clearfix">
             <div className="col-md-12 column">
+              <h1>Welcome {empname}</h1>
               <table
                 className="table table-bordered table-hover form-table"
                 id="tab_logic"
               >
                 <thead>
                   <tr>
-                      <th className="text-center">S.No</th>
+                    <th className="text-center">S.No</th>
                     <th className="text-center"> TechName </th>
                     <th className="text-center"> Rating </th>
                     <th className="text-center"> Add another Technologies </th>
@@ -71,7 +83,7 @@ class AddRowsDynamic extends React.Component {
                 </thead>
                 <tbody>
                   {this.state.rows.map((item, idx) => (
-                    <tr id="addr0" key={idx}>
+                    <tr id="addr1" key={idx}>
                       <td className="pt-4 text-center">{idx}</td>
                       <td>
                         {/* <input
@@ -81,7 +93,7 @@ class AddRowsDynamic extends React.Component {
                           onChange={this.handleChange(idx)}
                           className="form-control"
                         /> */}
-                        <select className="mt-2 form-control" techname="techname" onChange={this.handleChange(idx)} name="techname" value={this.state.rows[idx].techname}>
+                        <select name="techName" className="mt-2 form-control" techname="techname" onChange={this.handleChange(idx)} value={this.state.rows[idx].techname}>
                             {technologies.map((item) => {
                                 return <option value={item.techName}>{item.techName}</option>
                             })}
@@ -111,7 +123,6 @@ class AddRowsDynamic extends React.Component {
                   ))}
                 </tbody>
               </table>
-              <p>Welcome to {}</p>
               <button
                 onClick={this.handleRemoveRow}
                 className="btn btn-danger float-right m-2"
@@ -126,8 +137,10 @@ class AddRowsDynamic extends React.Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+        )
+        }}
+        </UserContext.Consumer>
+    )
   }
 }
 

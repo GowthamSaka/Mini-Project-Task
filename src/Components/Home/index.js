@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import './index.css'
 
 function Home() {
@@ -9,18 +10,12 @@ function Home() {
         alt="Spinebiz" className="spinebiz-image" />
         <ul className="list-items">
         <li className="items"><Link to="/blogs">Registration</Link></li>
-        <li className="items"><Link to="/contact">AddRows</Link></li>
+        <li className="items"><Link to="/tech">AddRows</Link></li>
         <li className="items"><Link to="/search">Search</Link></li>
         </ul>
-      </div>
-      <div className="body-container">
-          
       </div>
     </div>
   );
 }
 
 export default Home;
-
-
-

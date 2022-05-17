@@ -5,7 +5,6 @@
    border-bottom: 1px solid black;
 }
 
-.search-button {
-    border:none;
-    border-width:0;
+.form_input{
+    width:auto;
 }
