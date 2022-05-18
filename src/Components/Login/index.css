@@ -1,0 +1,11 @@
+.bg-container{
+	background-color: #05f2e6;
+    filter: brightness(85%);
+	background-size: cover;
+	height: 110vh;
+	max-height: 2500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items:center;
+}

@@ -83,7 +83,7 @@ export default class Registration extends Component {
       const {projects,designations,empname,empid,project,exp,desig} = this.state;
 
     return (
-        <UserContext.Provider value={{empname: empname, empid : empid}}>
+        <UserContext.Provider value={{empname: this.state.empname, empid : this.state.empid}}>
         <Link to="/blogs" className="nav-link">
       <div className="bg-container">
         <h1 className="text-center">Employee Registration</h1>

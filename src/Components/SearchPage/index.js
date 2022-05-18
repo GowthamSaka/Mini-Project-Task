@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 // import {AiOutlineSearch} from 'react-icons/ai'
-// import MaterialTable from 'material-table'
+import MaterialTable from 'material-table'
+import tableIcons from '../Icons/MaterialTableIcons';
 import './index.css'
 
 export default class SearchPage extends Component {
@@ -12,11 +13,9 @@ export default class SearchPage extends Component {
     project : '',
     desig : '',
     technologies : [],
-    techName : ''
+    techName : '',
+    data : []
   }
-    // state = {
-    //     data : []
-    // }
 
     // componentDidMount() {
     //     fetch("https://jsonplaceholder.typicode.com/users")
@@ -46,6 +45,11 @@ export default class SearchPage extends Component {
         .then((jsonsData) => {
             this.setState({technologies : jsonsData})
         })
+        fetch("http://localhost:8080/api/e1/requiredempdata")
+            .then((result) => result.json())
+            .then((jsonData) => {
+                this.setState({data : jsonData})
+        })
   }
 
   getProject = (event) => {
@@ -62,15 +66,13 @@ export default class SearchPage extends Component {
 
   render() {
     const {projects,designations,project,desig,technologies,techName} = this.state;
-    //   const {data} = this.state;
-    //   const columns = [
-    //     { title: "ID", field: "id" },
-    //     { title: "Username", field: "username" },
-    //     { title: "Name", field: "name" },
-    //     { title: "Email", field: "email" },
-    //     { title: "Phone", field: "phone" },
-    //     { title: "Web Link", field: 'website' }, 
-    //   ]
+      const {data} = this.state;
+      const columns = [
+        { title: "ID", field: "empId" },
+        { title: "Username", field: "empName" },
+        { title: "Designation", field: "designations" },
+        { title: "Projects", field: "projects" }, 
+      ]
       
     return (
       <div>
@@ -101,17 +103,18 @@ export default class SearchPage extends Component {
                 <span><AiOutlineSearch className="search-icon"/></span> */}
               <select name="designation" className="form_input" value={desig} onChange={this.getDesignation}>
                 <option>Search By Designation</option>
-                {designations.map((designation) => {
+                {designations && designations.map((designation) => {
                         return <option value={designation.designationName} key={designation.id}>{designation.designationName}</option>
                     })}
                 </select>
-            </div>
+            </div>  
         </div>
-        {/* <MaterialTable
+        <MaterialTable
         title="Employee Data"
+        icons={tableIcons}
         data={data}
         columns={columns}
-      /> */}
+      />
       </div>
     )
   }
