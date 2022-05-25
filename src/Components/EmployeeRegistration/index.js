@@ -6,6 +6,8 @@ import './index.css'
 
 
 export default class Registration extends Component {
+
+    
     state = {
         projects : [],
         designations : [],
@@ -16,25 +18,27 @@ export default class Registration extends Component {
         project : '',
     }
 
-   handleEmpName = (event) => {
-        this.setState({empname : event.target.value});
+
+   onChangeEmpName = (event) => {
+        this.setState({empname : event.target.value})
    }
 
-   handleEmpId = (event) => {
+   onChangeEmpCode = (event) => {
        this.setState({empid : event.target.value});
    }
 
-   getProject = (event) => {
-       this.setState({project : event.target.value},()=>console.log(this.state.project));
-   }
- 
-   getExperience = (event) => {
-       this.setState({exp : event.target.value},()=>console.log(this.state.exp));
-   }
 
-   getDesignation = (event) => {
-       this.setState({desig : event.target.value},()=>console.log(this.state.desig))
-   }
+    getProject = (event) => {
+        this.setState({project : event.target.value},()=>console.log(this.state.project));
+    }
+    
+    getExperience = (event) => {
+        this.setState({exp : event.target.value},()=>console.log(this.state.exp));
+    }
+
+    getDesignation = (event) => {
+        this.setState({desig : event.target.value},()=>console.log(this.state.desig))
+    }
 
     componentDidMount() {
         fetch("http://localhost:8080/api/e1/allprojects")
@@ -42,7 +46,6 @@ export default class Registration extends Component {
             .then((json) => {
                 this.setState({
                     projects: json,
-                   
                 },()=>console.log(json));
             })
         fetch("http://localhost:8080/api/e1/alldesignations")
@@ -70,21 +73,24 @@ export default class Registration extends Component {
         }).then((res)=>{
             console.log(res);
             if(res.status===202){
-                window.location.href="/tech"
+                window.location.href="/rows"
             }
             else{
                 alert("Error")
             }
-        }) 
+        })
       };
-
     
   render() {
-      const {projects,designations,empname,empid,project,exp,desig} = this.state;
-
+    const {projects,designations,empname,empid,project,exp,desig} = this.state;
     return (
-        <UserContext.Provider value={{empname: this.state.empname, empid : this.state.empid}}>
-        <Link to="/blogs" className="nav-link">
+      <UserContext.Provider value={{
+          empname,
+          empid,
+          onChangeEmpName:this.onChangeEmpName,
+          onChangeEmpCode : this.onChangeEmpCode
+      }}  
+      >
       <div className="bg-container">
         <h1 className="text-center">Employee Registration</h1>
         <div className="form-body">
@@ -93,22 +99,37 @@ export default class Registration extends Component {
             </div>
             <div className="col-12 mb-3">
                 <label htmlFor="empname" className="form_label">Employee Name</label>
-                <input name="empId" className="form_input" type="text" id="empname" value={empname} placeholder="Employee Name" onChange={this.handleEmpName}/>
+                <input name="empId" 
+                className="form_input" 
+                type="text" 
+                id="empname" 
+                value={empname}
+                placeholder="Employee Name" 
+                onChange={ this.onChangeEmpName}
+                />
             </div>
+
             <div className="col-12 mb-3">
                 <label htmlFor="empid" className="form_label">Employee Id</label>
-                <input name="empName" className="form_input" type="text" id="empid" value={empid} placeholder="Employee ID" onChange={this.handleEmpId}/>
+                <input name="empName"
+                className="form_input"
+                type="text" id="empid"
+                value={empid}
+                placeholder="Employee ID"
+                onChange= {this.onChangeEmpCode}
+                />
             </div>
+
             <div className="col-12 mb-3">
                 <label className="form_label">Select Your Project</label>
                 <select name="projects" className="form_input" value={project} onChange={this.getProject}>
                     <option>Select Your Project</option>
                     {projects && projects.map((item) => (
-                       
                          <option value={item.projectName} key={item.id}>{item.projectName}</option>
                     ))}
                 </select>
             </div>
+
             <div className="col-12 mb-3">
                 <label className="form_label">Years Of Experience</label>
                 <select name="experience" className="form_input" value={exp} onChange={this.getExperience}>
@@ -122,6 +143,7 @@ export default class Registration extends Component {
                    <option value="more">more</option>
                 </select>
             </div>
+
             <div className="col-12 mb-3">
                 <label className="form_label">Designation</label>
                 <select name="designation" className="form_input" value={desig} onChange={this.getDesignation}>
@@ -131,15 +153,15 @@ export default class Registration extends Component {
                     })}
                 </select>
             </div>
+            
           <div className="d-flex flex-row justify-content-center">
           <button className="btn btn-primary" onClick={this.saveuser}>
               SIGN UP
             </button>
           </div>
-        </div>
+        </div>  
       </div>
-      </Link>
       </UserContext.Provider>
-    )
+      )
   }
 }

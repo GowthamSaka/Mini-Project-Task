@@ -1,5 +1,5 @@
-.bg-container{
-	background-color: #05f2e6;
+.login-bg-container{
+	background-image: linear-gradient(to top, #ffffff, #05f2e6);
     filter: brightness(85%);
 	background-size: cover;
 	height: 110vh;
@@ -9,3 +9,14 @@
 	justify-content: center;
     align-items:center;
 }
+
+.form-body-1  {
+    background-color: #FCF6F5FF;
+	padding: 20px;
+	border-radius: 15px;
+    background-size: cover;
+    width:500px;
+	height : 300px;
+    align-items:center;
+}
+

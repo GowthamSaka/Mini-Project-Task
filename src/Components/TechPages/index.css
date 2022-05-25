@@ -1,0 +1,14 @@
+.tech-bg-container {
+    background-image: linear-gradient(to bottom, #ffffff, #05f2e6);
+    filter: brightness(85%);
+	background-size: cover;
+	height: 110vh;
+	max-height: 2500px;
+}
+
+.ratings {
+    height : 35px;
+    margin-top : 3px;
+    border : 1px solid #323f4b;
+    border-radius: 3px;;
+}

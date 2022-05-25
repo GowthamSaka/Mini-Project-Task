@@ -6,11 +6,10 @@ import UserContext from "../Context/UserContext";
 class AddRowsDynamic extends React.Component {
 
   // static contextType = UserContext
-
   state = {
-    rows: [{}],
+    rows: [],
     technologies : [],
-    techName : ''
+    techname : ''
   };
 
   componentDidMount() {
@@ -21,21 +20,35 @@ class AddRowsDynamic extends React.Component {
         })
         .catch((err)=>{
             console.log(err)
-        })
-    
+        })   
 }
 
 
   handleChange = idx => e => {
     const { name, value } = e.target;
     const rows = [...this.state.rows];
-    rows[idx] = {
-      [name]: value
-    };
+    const rowInfo = rows[idx];
+    rowInfo[name] = value;
     this.setState({
       rows
     });
+    console.log(rows);
   };
+
+//   handleChange = event => {
+//     const {rows} = this.state;
+//     let name = event.target.name;
+//     let value = event.target.value;
+//     this.setState(prevState => {
+//         prevState.rows[name] =  value;
+        
+//         return {
+//             rows: prevState.fields
+//         };
+//     });
+//     console.log(rows);
+// };
+  
   handleAddRow = () => {
     const item = {
       techname: "",
@@ -93,7 +106,7 @@ class AddRowsDynamic extends React.Component {
                           onChange={this.handleChange(idx)}
                           className="form-control"
                         /> */}
-                        <select name="techName" className="mt-2 form-control" techname="techname" onChange={this.handleChange(idx)} value={this.state.rows[idx].techname}>
+                        <select name="techName" className="mt-2 form-control" techname="techname" onChange={this.handleChange(idx)} value={this.state.rows[idx].techname || ""}>
                             {technologies.map((item) => {
                                 return <option value={item.techName}>{item.techName}</option>
                             })}

@@ -1,5 +1,5 @@
 .bg-container{
-	background-color: #05f2e6;
+	background-image: linear-gradient(to top, #ffffff, #05f2e6);
     filter: brightness(85%);
 	background-size: cover;
 	height: 110vh;

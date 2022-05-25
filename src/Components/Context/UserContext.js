@@ -2,7 +2,9 @@ import React from 'react'
 
 const UserContext = React.createContext({
     empname : '',
-    empid : ''
-})
+    empid : '',
+    onChangeEmpName : () => {},
+    onChangeEmpCode : () => {}
+});
 
-export default UserContext
+export default UserContext;

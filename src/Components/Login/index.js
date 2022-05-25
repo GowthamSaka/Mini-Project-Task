@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './index.css'
 export default class LoginPage extends Component {
 
     state = {
@@ -26,9 +27,10 @@ handleSubmit = (event) => {
   render() {
     const {adminName,password} = this.state
     return (
-        <div className="bg-container">
+        <div className="login-bg-container">
+          <h1>Admins only can Login</h1>
         <form onSubmit={this.handleSubmit}>
-        <div className="form-body">
+        <div className="form-body-1">
         <div className="d-flex flex-row justify-content-center">
             <img  className="employee-image" alt="emp-img" src="https://as2.ftcdn.net/v2/jpg/01/26/63/11/1000_F_126631173_W9Nq8ZA5s0R0M3ZIBx3BMytVIFseGa9c.jpg"/>
             </div>
@@ -47,7 +49,7 @@ handleSubmit = (event) => {
             </div>
             </div>
         </form>
-      </div>
+        </div>
     )
   }
 }

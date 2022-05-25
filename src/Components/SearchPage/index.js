@@ -71,11 +71,13 @@ export default class SearchPage extends Component {
         { title: "ID", field: "empId" },
         { title: "Username", field: "empName" },
         { title: "Designation", field: "designations" },
-        { title: "Projects", field: "projects" }, 
+        { title: "Projects", field: "projects" },
+        { title: "Technology", field : "techName"},
+        { title: "Rating", field : "rating"}
       ]
       
     return (
-      <div>
+      <div className="search-bg-container">
         <h1 className="text-center">Welcome Admin</h1>
         <div className="d-flex flex-row">
             <div className="d-flex flex-row search-container">
