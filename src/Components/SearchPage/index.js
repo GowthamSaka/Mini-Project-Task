@@ -70,10 +70,10 @@ export default class SearchPage extends Component {
       const columns = [
         { title: "ID", field: "empId" },
         { title: "Username", field: "empName" },
-        { title: "Designation", field: "designations" },
+        { title: "Designation", field: "designation" },
         { title: "Projects", field: "projects" },
         { title: "Technology", field : "techName"},
-        { title: "Rating", field : "rating"}
+        { title: "Experience", field : "experience"}
       ]
       
     return (

@@ -11,7 +11,7 @@ class EmployeeTechnology extends React.Component {
   constructor(props) {
     super(props)
     this.state = { 
-       formValues: [{ techName: "", rating : "" }],
+       formValues: [{techName: "", rating : ""}],
        technologies : [],
        techName : '',
      };
@@ -21,12 +21,12 @@ class EmployeeTechnology extends React.Component {
   handleChange(i, e) {
     let formValues = this.state.formValues;
     formValues[i][e.target.name] = e.target.value;
-    this.setState({ formValues });
+    this.setState({formValues });
   }
 
   addFormFields() {
     this.setState(({
-      formValues: [...this.state.formValues, { techName: "", rating: "" }]
+      formValues: [...this.state.formValues, {techName: "", rating: "" }]
     }))
   }
 
@@ -37,10 +37,20 @@ class EmployeeTechnology extends React.Component {
   }
 
   handleSubmit(event) {
+    const {formValues} = this.state;
     event.preventDefault();
-    // alert(JSON.stringify(this.state.formValues));
-    console.log(this.state.formValues);
+    //alert(JSON.stringify(formValues));
+    fetch("http://localhost:8080/api/e1/skillsofemployees", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        formValues // Use your own property name / key
+      ),
+    });
   }
+
 
   componentDidMount() {
     fetch("http://localhost:8080/api/e1/alltechnologies")

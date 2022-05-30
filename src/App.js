@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import AddRowsDynamic from './Components/AddRows'
 import Registration from './Components/EmployeeRegistration'
 import Home from './Components/Home'
@@ -23,6 +23,7 @@ export default class App extends Component {
           <Route exact path="tech" element={<AddRowsDynamic />} />
           <Route exact path="search" element={<SearchPage />} />
           <Route exact path="rows" element={<EmployeeTechnology />} />
+          <Route index element={<Home />} />
       </Routes>
     </BrowserRouter>
     )

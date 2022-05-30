@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import {Link} from 'react-router-dom'
 import UserContext from '../Context/UserContext'
 import './index.css'
 
 
 export default class Registration extends Component {
 
-    
     state = {
         projects : [],
         designations : [],
@@ -16,8 +14,8 @@ export default class Registration extends Component {
         desig : '',
         exp : '',
         project : '',
+        Employee : []
     }
-
 
    onChangeEmpName = (event) => {
         this.setState({empname : event.target.value})
@@ -88,8 +86,9 @@ export default class Registration extends Component {
           empname,
           empid,
           onChangeEmpName:this.onChangeEmpName,
-          onChangeEmpCode : this.onChangeEmpCode
-      }}  
+          onChangeEmpCode : this.onChangeEmpCode,
+      }} 
+      
       >
       <div className="bg-container">
         <h1 className="text-center">Employee Registration</h1>
@@ -157,11 +156,11 @@ export default class Registration extends Component {
           <div className="d-flex flex-row justify-content-center">
           <button className="btn btn-primary" onClick={this.saveuser}>
               SIGN UP
-            </button>
+        </button>
           </div>
         </div>  
       </div>
       </UserContext.Provider>
-      )
+    )
   }
 }
