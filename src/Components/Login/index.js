@@ -32,20 +32,20 @@ handleSubmit = (event) => {
         <form onSubmit={this.handleSubmit}>
         <div className="form-body-1">
         <div className="d-flex flex-row justify-content-center">
-            <img  className="employee-image" alt="emp-img" src="https://as2.ftcdn.net/v2/jpg/01/26/63/11/1000_F_126631173_W9Nq8ZA5s0R0M3ZIBx3BMytVIFseGa9c.jpg"/>
+            <img  className="employee-image" alt="emp-img" src="https://cdn4.iconfinder.com/data/icons/office-34/256/28-512.png"/>
             </div>
           <div className="col-12 mb-3">
                 <label htmlFor="adminName" className="form_label">Admin Name</label>
-                <input id="adminName" className="form_input" type="text" placeholder="Admin Name" onChange={this.handleAdminName} value={adminName}/>
+                <input id="adminName" className="form-control" type="text" placeholder="Admin Name" onChange={this.handleAdminName} value={adminName}/>
             </div>
             <div className="col-12 mb-3">
-                <label htmlFor="password" className="form_label">Employee Id</label>
-                <input id="password" className="form_input" type="password" placeholder="Password" onChange={this.handleAdminPassword} value={password}/>
+                <label htmlFor="password" className="form_label">Password</label>
+                <input id="password" className="form-control" type="password" placeholder="Password" onChange={this.handleAdminPassword} value={password}/>
             </div>
             <div className="d-flex flex-row justify-content-center">
           <button className="btn btn-primary">
               LOGIN
-            </button>
+          </button>
             </div>
             </div>
         </form>

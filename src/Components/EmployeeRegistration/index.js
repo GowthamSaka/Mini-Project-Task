@@ -14,7 +14,9 @@ export default class Registration extends Component {
         desig : '',
         exp : '',
         project : '',
-        Employee : []
+        Employee : [],
+        nameError : '',
+        codeError : ''
     }
 
    onChangeEmpName = (event) => {
@@ -42,17 +44,18 @@ export default class Registration extends Component {
         fetch("http://localhost:8080/api/e1/allprojects")
             .then((res) => res.json())
             .then((json) => {
-                this.setState({
-                    projects: json,
-                },()=>console.log(json));
-            })
+                this.setState({projects: json});
+            }).catch(rejected => {
+                console.log(rejected);
+            });
         fetch("http://localhost:8080/api/e1/alldesignations")
-        .then((result) => result.json())
-        .then((jsonData) => {
-            this.setState({designations : jsonData})
-        })
+            .then((result) => result.json())
+            .then((jsonData) => {
+                this.setState({designations : jsonData})
+        }).catch(rejected => {
+            console.log(rejected);
+        });
     }
-    
 
     saveuser = (e) => {
         e.preventDefault();
@@ -71,10 +74,11 @@ export default class Registration extends Component {
         }).then((res)=>{
             console.log(res);
             if(res.status===202){
-                window.location.href="/rows"
+               window.location.href="/rows"
+               localStorage.setItem("employeename",JSON.stringify(employee.empName));
             }
             else{
-                alert("Error")
+                alert("Enter Field Values");
             }
         })
       };
@@ -87,22 +91,22 @@ export default class Registration extends Component {
           empid,
           onChangeEmpName:this.onChangeEmpName,
           onChangeEmpCode : this.onChangeEmpCode,
-      }} 
-      
+      }}
       >
       <div className="bg-container">
         <h1 className="text-center">Employee Registration</h1>
         <div className="form-body">
             <div className="d-flex flex-row justify-content-center">
-            <img  className="employee-image" alt="emp-img" src="https://as2.ftcdn.net/v2/jpg/01/26/63/11/1000_F_126631173_W9Nq8ZA5s0R0M3ZIBx3BMytVIFseGa9c.jpg"/>
+            <img  className="employee-image" alt="emp-img" src="https://cdn4.iconfinder.com/data/icons/office-34/256/28-512.png"/>
             </div>
             <div className="col-12 mb-3">
                 <label htmlFor="empname" className="form_label">Employee Name</label>
                 <input name="empId" 
+                required
                 className="form_input" 
                 type="text" 
                 id="empname" 
-                value={empname}
+                value={empname || ""}
                 placeholder="Employee Name" 
                 onChange={ this.onChangeEmpName}
                 />
@@ -111,9 +115,10 @@ export default class Registration extends Component {
             <div className="col-12 mb-3">
                 <label htmlFor="empid" className="form_label">Employee Id</label>
                 <input name="empName"
+                required
                 className="form_input"
                 type="text" id="empid"
-                value={empid}
+                value={empid || ""}
                 placeholder="Employee ID"
                 onChange= {this.onChangeEmpCode}
                 />
@@ -123,8 +128,8 @@ export default class Registration extends Component {
                 <label className="form_label">Select Your Project</label>
                 <select name="projects" className="form_input" value={project} onChange={this.getProject}>
                     <option>Select Your Project</option>
-                    {projects && projects.map((item) => (
-                         <option value={item.projectName} key={item.id}>{item.projectName}</option>
+                    {projects && projects.map((item,index) => (
+                         <option value={item.projectName} key={index}>{item.projectName}</option>
                     ))}
                 </select>
             </div>
@@ -147,9 +152,9 @@ export default class Registration extends Component {
                 <label className="form_label">Designation</label>
                 <select name="designation" className="form_input" value={desig} onChange={this.getDesignation}>
                     <option>Select Your Designation</option>
-                {designations.map((designation) => {
-                        return <option value={designation.designationName} key={designation.id}>{designation.designationName}</option>
-                    })}
+                {designations && designations.map((designation,index) => {
+                        return <option value={designation.designationName} key={index}>{designation.designationName}</option>
+                })}
                 </select>
             </div>
             

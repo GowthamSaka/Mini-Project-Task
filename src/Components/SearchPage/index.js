@@ -17,15 +17,6 @@ export default class SearchPage extends Component {
     data : []
   }
 
-    // componentDidMount() {
-    //     fetch("https://jsonplaceholder.typicode.com/users")
-    //     .then((result) => result.json())
-    //     .then((jsonData) => {
-    //         this.setState({data : jsonData})
-    //     })
-    // }
-
-
     componentDidMount() {
       fetch("http://localhost:8080/api/e1/allprojects")
           .then((res) => res.json())
@@ -34,17 +25,20 @@ export default class SearchPage extends Component {
                   projects: json,
                  
               },()=>console.log(json));
-          })
+      })
+
       fetch("http://localhost:8080/api/e1/alldesignations")
       .then((result) => result.json())
       .then((jsonData) => {
           this.setState({designations : jsonData})
       })
+
       fetch("http://localhost:8080/api/e1/alltechnologies")
         .then((result) => result.json())
         .then((jsonsData) => {
             this.setState({technologies : jsonsData})
         })
+
         fetch("http://localhost:8080/api/e1/requiredempdata")
             .then((result) => result.json())
             .then((jsonData) => {
@@ -115,7 +109,7 @@ export default class SearchPage extends Component {
         title="Employee Data"
         icons={tableIcons}
         data={data}
-        columns={columns}
+        columns={columns} 
       />
       </div>
     )

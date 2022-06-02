@@ -1,19 +1,43 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React,{Component} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button,Modal} from 'react-bootstrap';
 import './index.css'
 
-function Home() {
+export default class Home extends Component{
+  constructor(){  
+    super();  
+    this.state={  
+      show:false,
+    }  
+  }  
+
+  handleModal(){  
+    this.setState({show:!this.state.show})  
+  } 
+  
+  render() {
   return (
     <div>
       <div className="header">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0g8-ytnyzRjwlKSDIj-_MdbQbTxR_Z--XvfyIdeC4ta3PSb5ebPx60Em-ubGEbr9oRH0&usqp=CAU" 
         alt="Spinebiz" className="spinebiz-image" />
         <ul className="list-items">
-        <li className="items"><Link to="/login">Login</Link></li>
-        <li className="items"><Link to="/registration">Registration</Link></li>
+        {/* <li className="items"><Link to="/login">Login</Link></li> */}
+        <li className="items"><Button onClick={()=>this.handleModal()}>Admin</Button></li>
+        <Modal show={this.state.show} onHide={()=>this.handleModal()}>  
+          <Modal.Header closeButton><b>Admins Login Page</b></Modal.Header>  
+          <Modal.Body>Admins Only Can log in<br></br>If you are not an admin please click on close button</Modal.Body>  
+          <Modal.Footer>  
+            <Button onClick={()=>this.handleModal()}>Close</Button>  
+            <Button as={Link} to="/login" variant="text" className="btn btn-primary">Log In</Button>  
+          </Modal.Footer>  
+      </Modal> 
+
+        {/* <li className="items"><Link to="/rows">Registration</Link></li> */}
+        <li className="items"><Button as={Link} to="/registration" variant="text" className="btn btn-primary">Employee</Button></li>
+
         <li className="items"><Link to="/rows">Rows</Link></li>
-        {/* <li className="items"><Link to="/tech">AddRows</Link></li>
-        <li className="items"><Link to="/search">Search</Link></li> */}
         </ul>
       </div>
       <div className="body-container">
@@ -28,5 +52,4 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
+}

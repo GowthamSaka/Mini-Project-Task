@@ -1,19 +1,21 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
-import UserContext from "../Context/UserContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
 
-
+const EmpName = JSON.parse(localStorage.getItem("employeename"));
 class EmployeeTechnology extends React.Component {
+  
   constructor(props) {
     super(props)
     this.state = { 
-       formValues: [{techName: "", rating : ""}],
+       id : '',
+       formValues: [{id:'', empName:EmpName , techName: "", rating : ""}],
        technologies : [],
        techName : '',
+       isloading : false
      };
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -26,7 +28,7 @@ class EmployeeTechnology extends React.Component {
 
   addFormFields() {
     this.setState(({
-      formValues: [...this.state.formValues, {techName: "", rating: "" }]
+      formValues: [...this.state.formValues, {id:this.state.id,empName:EmpName,techName: "", rating: "" }],
     }))
   }
 
@@ -39,16 +41,17 @@ class EmployeeTechnology extends React.Component {
   handleSubmit(event) {
     const {formValues} = this.state;
     event.preventDefault();
-    //alert(JSON.stringify(formValues));
-    fetch("http://localhost:8080/api/e1/skillsofemployees", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        formValues // Use your own property name / key
-      ),
-    });
+    alert(JSON.stringify(formValues));
+    localStorage.removeItem("EmpName")
+    // fetch("http://localhost:8080/api/e1/skillsofemployees", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(
+    //     formValues // Use your own property name / key
+    //   ),
+    // });
   }
 
 
@@ -60,41 +63,60 @@ class EmployeeTechnology extends React.Component {
         })
         .catch((err)=>{
             console.log(err)
-        })
+    })
+    this.getEmployeeData();
     }
 
+    getEmployeeData = async () => {
+      const EmpName = JSON.parse(localStorage.getItem("employeename"));
+      console.log(EmpName);
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/e1/byuser/${EmpName}`
+        );
+        const json = await response.json();
+        const empUniqueId = json.empRegisterId;
+        this.setState({id : empUniqueId});
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    
   render() {
       const {technologies} = this.state;
-      
-      return (
-        <UserContext.Consumer>
-          {value => {
-            const {empname,empid} = value
-            console.log(empname);
-            return (
+      const {id} = this.state;
+      return (      
         <div className="container tech-bg-container">
             <div className="row">
                 <div className="col-sm-8 ">
-                  <h1>{empname} and your id is  {empid} </h1>
+                  <h1>Welcome {EmpName}</h1>
                   <table className="table">
                     <thead>
                       <tr>
-                          <th>S.No</th>
+                          <th>id</th>
+                          <th>Employee Id</th>
+                          <th>EmployeeName</th>
                           <th>Technolgies</th>
                           <th>Rating</th>
-                          <th>Add More Technologies</th>
+                          <th>
+                        <button 
+                        onClick={() => this.addFormFields()} 
+                        className="btn btn-outline-success">
+                        +
+                      </button></th>
                       </tr>
-                    </thead>
-
+                    </thead> 
                     <tbody>
                     {this.state.formValues.map((element, index) => (
                     <tr id="addr1" key={index}>
                       <td className="pt-4 text-center">{index}</td>
+                      <td><p>{id}</p></td>
+                      <td><p>{EmpName}</p></td>
                       <td>
                       <select name="techName" className="mt-2 form-control-m ratings" techname="techname" onChange={e => this.handleChange(index, e)}>
                         <option>Select Technologies</option>
-                            {technologies.map((item) => {
-                                return <option value={item.techName}>{item.techName}</option>
+                            {technologies.map((item,index) => {
+                                return <option value={item.techName} key={index}>{item.techName}</option>
                             })}
                       </select>
                       </td>
@@ -108,13 +130,7 @@ class EmployeeTechnology extends React.Component {
                       />
                       </td>
 
-                      <td>
-                      <button 
-                        onClick={() => this.addFormFields()} 
-                        className="btn btn-outline-success">
-                        +
-                      </button>
-                        
+                      <td> 
                       <button
                         className="btn btn-outline-danger m-2"
                         onClick={() => this.removeFormFields(index)}
@@ -149,9 +165,6 @@ class EmployeeTechnology extends React.Component {
             </div>
           </div>
         </div>
-         )
-        }} 
-      </UserContext.Consumer>
     )
   }
 }
