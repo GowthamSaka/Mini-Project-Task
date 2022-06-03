@@ -95,6 +95,7 @@ export default class Registration extends Component {
       >
       <div className="bg-container">
         <h1 className="text-center">Employee Registration</h1>
+        <p>Hello World</p>
         <div className="form-body">
             <div className="d-flex flex-row justify-content-center">
             <img  className="employee-image" alt="emp-img" src="https://cdn4.iconfinder.com/data/icons/office-34/256/28-512.png"/>
