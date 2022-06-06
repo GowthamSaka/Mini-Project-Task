@@ -89,7 +89,7 @@ class EmployeeTechnology extends React.Component {
                     <thead>
                       <tr>
                           <th>id</th>
-                          <td>EmpName</td>
+                          <th>EmpName</th>
                           <th>Technolgies</th>
                           <th>Rating</th>
                           <th>
@@ -103,8 +103,8 @@ class EmployeeTechnology extends React.Component {
                     <tbody>
                     {this.state.formValues.map((element, index) => (
                     <tr id="addr1" key={index}>
-                      <td className="pt-4 text-center">{index}</td>
-                      <td>{EmpName}</td>
+                      <td className="pt-4 ">{index}</td>
+                      <td className="pt-4 pr-4 ">{EmpName}</td>
                       <td>
                       <select name="techName" className="mt-2 form-control-m ratings" techname="techname" onChange={e => this.handleChange(index, e)}>
                         <option>Select Technologies</option>
