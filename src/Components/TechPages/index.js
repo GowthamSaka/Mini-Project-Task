@@ -8,12 +8,26 @@ import './index.css'
 const EmpName = JSON.parse(localStorage.getItem("employeename"));
 class EmployeeTechnology extends React.Component {
   
+  // constructor(props) {
+  //   super(props)
+  //   this.state = { 
+  //      formValues: [{empname:EmpName , techName: "", rating : ""}],
+  //      technologies:[],
+  //      techName : ''
+  //    };
+  //   this.handleSubmit = this.handleSubmit.bind(this)
+  // }
+
+  state = {
+    formValues: [{id:'',empname:EmpName , techName: "", rating : ""}],
+    technologies:[],
+    techName : '',
+    id : ''
+  }
+
   constructor(props) {
-    super(props)
-    this.state = { 
-       formValues: [{empname:EmpName , techName: "", rating : ""}]
-     };
-    this.handleSubmit = this.handleSubmit.bind(this)
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   
   handleChange(i, e) {
@@ -24,7 +38,7 @@ class EmployeeTechnology extends React.Component {
 
   addFormFields() {
     this.setState(({
-      formValues: [...this.state.formValues, {empname:EmpName ,techName: "", rating: "" }]
+      formValues: [...this.state.formValues, {id:this.state.id,empname:EmpName ,techName: "", rating: "" }]
     }))
   }
 
@@ -35,7 +49,6 @@ class EmployeeTechnology extends React.Component {
   }
 
   handleSubmit(event) {
-  //  const {formValues} = this.state;
     event.preventDefault();
     alert(JSON.stringify(this.state.formValues));
     // fetch("http://localhost:8080/api/e1/skillsofemployees", {
@@ -79,7 +92,7 @@ class EmployeeTechnology extends React.Component {
     
   render() {
       const {technologies} = this.state;
-      //const {id} = this.state;
+      const {id} = this.state;
       return (      
         <div className="container tech-bg-container">
             <div className="row">
@@ -89,6 +102,7 @@ class EmployeeTechnology extends React.Component {
                     <thead>
                       <tr>
                           <th>id</th>
+                          <th>EmpUniqueId</th>
                           <th>EmpName</th>
                           <th>Technolgies</th>
                           <th>Rating</th>
@@ -104,10 +118,11 @@ class EmployeeTechnology extends React.Component {
                     {this.state.formValues.map((element, index) => (
                     <tr id="addr1" key={index}>
                       <td className="pt-4 ">{index}</td>
+                      <td className="pt-4 pr-4 ">{id}</td>
                       <td className="pt-4 pr-4 ">{EmpName}</td>
                       <td>
-                      <select name="techName" className="mt-2 form-control-m ratings" techname="techname" onChange={e => this.handleChange(index, e)}>
-                        <option>Select Technologies</option>
+                      <select name="techName" className="mt-2 form-control-m ratings" techname="techname" onChange={e => this.handleChange(index, e)} isDisabled="true">
+                        <option defaultValue="none" >Select Technologies</option>
                             {technologies && technologies.map((item,index) => {
                                 return <option value={item.techName} key={index}>{item.techName}</option>
                             })}
@@ -135,12 +150,12 @@ class EmployeeTechnology extends React.Component {
                   ))}
                 </tbody>
               </table>
-              <button
+              {/* <button
                 onClick={this.handleRemoveRow}
                 className="btn btn-danger float-right m-2"
               >
                 Delete Last Row
-              </button>
+              </button> */}
               <button
                 className="btn btn-success float-right"
                 onClick={this.handleSubmit}
