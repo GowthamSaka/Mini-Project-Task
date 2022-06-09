@@ -36,7 +36,7 @@ export default class Home extends Component{
 
         {/* <li className="items"><Link to="/rows">Registration</Link></li> */}
         <li className="items"><Button as={Link} to="/registration" variant="text" className="btn btn-primary">Employee</Button></li>
-
+        <li className="items"><Button as={Link} to="/checkData" variant="text" className="btn btn-primary">Check Employee Data</Button></li>
         <li className="items"><Link to="/rows">Rows</Link></li>
         </ul>
       </div>

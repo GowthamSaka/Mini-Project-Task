@@ -109,7 +109,7 @@ export default class SearchPage extends Component {
         title="Employee Data"
         icons={tableIcons}
         data={data}
-        columns={columns} 
+        columns={columns}
       />
       </div>
     )

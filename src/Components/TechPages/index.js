@@ -6,23 +6,13 @@ import './index.css'
 
 
 const EmpName = JSON.parse(localStorage.getItem("employeename"));
+
 class EmployeeTechnology extends React.Component {
   
-  // constructor(props) {
-  //   super(props)
-  //   this.state = { 
-  //      formValues: [{empname:EmpName , techName: "", rating : ""}],
-  //      technologies:[],
-  //      techName : ''
-  //    };
-  //   this.handleSubmit = this.handleSubmit.bind(this)
-  // }
-
   state = {
     formValues: [{id:'',empname:EmpName , techName: "", rating : ""}],
     technologies:[],
-    techName : '',
-    id : ''
+    techName : ''
   }
 
   constructor(props) {
@@ -36,11 +26,13 @@ class EmployeeTechnology extends React.Component {
     this.setState({ formValues });
   }
 
+
   addFormFields() {
     this.setState(({
       formValues: [...this.state.formValues, {id:this.state.id,empname:EmpName ,techName: "", rating: "" }]
     }))
   }
+
 
   removeFormFields(i) {
     let formValues = this.state.formValues;
@@ -49,6 +41,7 @@ class EmployeeTechnology extends React.Component {
   }
 
   handleSubmit(event) {
+    
     event.preventDefault();
     alert(JSON.stringify(this.state.formValues));
     // fetch("http://localhost:8080/api/e1/skillsofemployees", {
@@ -101,7 +94,7 @@ class EmployeeTechnology extends React.Component {
                   <table className="table">
                     <thead>
                       <tr>
-                          <th>id</th>
+                          {/* <th>id</th> */}
                           <th>EmpUniqueId</th>
                           <th>EmpName</th>
                           <th>Technolgies</th>
@@ -117,7 +110,7 @@ class EmployeeTechnology extends React.Component {
                     <tbody>
                     {this.state.formValues.map((element, index) => (
                     <tr id="addr1" key={index}>
-                      <td className="pt-4 ">{index}</td>
+                      {/* <td className="pt-4 ">{index}</td> */}
                       <td className="pt-4 pr-4 ">{id}</td>
                       <td className="pt-4 pr-4 ">{EmpName}</td>
                       <td>
