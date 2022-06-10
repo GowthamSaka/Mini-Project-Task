@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import {AiOutlineSearch} from 'react-icons/ai'
-//import ReactLoading from "react-loading";
+import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
+import ReactLoading from "react-loading";
 import './index.css'
 
 export default class EmployeeData extends Component {
     state = {
         ShowData : [],
         name : '',
-        isloading : false
+        showResults : true
     }
 
     componentDidMount() {
@@ -28,7 +30,7 @@ export default class EmployeeData extends Component {
         const results = ShowData.filter((user) => {
           return user.empId.toLowerCase().startsWith(name.toLowerCase());
         });
-        this.setState({ShowData : results})
+        this.setState({ShowData : results,showResults:false})
       } else {
         return null
       }
@@ -37,10 +39,10 @@ export default class EmployeeData extends Component {
     };
    
   render() {
-      const { ShowData,name } = this.state;
+      const { ShowData,name,showResults} = this.state;
     return (
       <div>
-        <input type="search" placeholder="Search By Project" className="search-button" onChange={this.filter} value={name}/>
+        <input type="search" placeholder="Employee Code" className="search-button" onChange={this.filter} value={name}/>
         <span><AiOutlineSearch className="search-icon" onClick={this.searchResults}/></span>
         <table>
         <thead>
@@ -50,7 +52,8 @@ export default class EmployeeData extends Component {
                 <th>Technolgies</th>
             </tr>
         </thead>
-
+{showResults ? null :
+      <>
         {ShowData && ShowData.length > 0 ? (
         ShowData.map((item, i) => (
         <tbody key={i}>
@@ -66,13 +69,21 @@ export default class EmployeeData extends Component {
                 <tr><td>No Results Found</td></tr>
             </tfoot>  
         )}
+        </>
+      }
         </table>
+        <Button
+          as={Link}
+          to="/rows"
+  	      variant="text"
+          className="btn btn-secondary m-2"
+        >
+     	      Add New Technolgies
+        </Button>
       </div>
     )
   }
 }
 
 
-{/* <ReactLoading type="spokes" color="#0000FF"
-        height={100} width={50} />
-} */}
+
